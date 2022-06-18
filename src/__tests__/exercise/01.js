@@ -33,18 +33,34 @@ test('counter increments and decrements when the buttons are clicked', () => {
   // 🐨 get a reference to the increment and decrement buttons:
   //   💰 div.querySelectorAll('button')
   const [decrementElement, incrementElement] = container.querySelectorAll('button');
+
+
   // 🐨 get a reference to the message div:
   //   💰 div.firstChild.querySelector('div')
   const messageElement = container.firstChild.querySelector('div')
+
   // 🐨 expect the message.textContent toBe 'Current count: 0'
   expect(messageElement.textContent).toBe('Current count: 0');
+
   // 🐨 click the increment button (💰 act(() => increment.click()))
   // 🐨 assert the message.textContent
-  act(() => incrementElement.click())
+  const incrementClickEvent = new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true,
+    button: 0,
+  })
+  act(() => incrementElement.dispatchEvent(incrementClickEvent))
   expect(messageElement.textContent).toBe('Current count: 1')
+  
   // 🐨 click the decrement button (💰 act(() => decrement.click()))
   // 🐨 assert the message.textContent
-  act(() => decrementElement.click())
+  const decrementClickEvent = new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true,
+    button: 0,
+  })
+  act(() => decrementElement.dispatchEvent(decrementClickEvent))
+
   expect(messageElement.textContent).toBe('Current count: 0')
   // 🐨 cleanup by removing the div from the page (💰 div.remove())
   // 🦉 If you don't cleanup, then it could impact other tests and/or cause a memory leak
